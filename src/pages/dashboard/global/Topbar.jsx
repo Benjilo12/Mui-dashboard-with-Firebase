@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material";
 import { useContext } from "react";
+import Tooltip from "@mui/material/Tooltip";
 import { ColorModeContext, tokens } from "../../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -31,22 +32,30 @@ function Topbar() {
       </Box>
 
       <Box sx={{ display: "flex" }}>
-        <IconButton onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === "dark" ? (
-            <DarkModeOutlinedIcon />
-          ) : (
-            <LightModeOutlinedIcon />
-          )}
-        </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
+        <Tooltip title="Light/Dark">
+          <IconButton onClick={colorMode.toggleColorMode}>
+            {theme.palette.mode === "dark" ? (
+              <DarkModeOutlinedIcon />
+            ) : (
+              <LightModeOutlinedIcon />
+            )}
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Notifications">
+          <IconButton>
+            <NotificationsOutlinedIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Settings">
+          <IconButton>
+            <SettingsOutlinedIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Sign Out">
+          <IconButton>
+            <PersonOutlinedIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
     </Box>
   );

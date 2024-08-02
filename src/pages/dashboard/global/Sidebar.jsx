@@ -148,7 +148,7 @@ function Sidebar() {
             />
             <Item
               title="Contacts Information"
-              to="/contacts"
+              to="/contact"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -175,13 +175,13 @@ function Sidebar() {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="Profile Form"
               to="/form"
               icon={<Person4OutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Item
               title="Calendar"
               to="/calendar"
