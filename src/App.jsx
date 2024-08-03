@@ -8,6 +8,8 @@ import Team from "./pages/team/Team";
 import Contact from "./pages/contacts/Contact";
 import Invoices from "./pages/invoices/invoices";
 import Form from "./pages/form/Form";
+import Calendar from "./pages/calendar/Calendar";
+import Faq from "./pages/faq/Faq";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -25,12 +27,13 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/faq" element={<Faq />} />
               {/* <Route path="/bar" element={<Bar />} /> */}
               {/* <Route path="/line" element={<Line />} /> */}
               {/* <Route path="/pie" element={<Pie />} /> */}
-              {/* <Route path="/faq" element={<FAQ />} /> */}
+
               {/* <Route path="/geography" element={<Geography />} /> */}
-              {/* <Route path="/calendar" element={<Calendar />} /> */}
             </Routes>
           </main>
         </div>

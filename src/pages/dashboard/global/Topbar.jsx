@@ -3,6 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material";
 import { useContext } from "react";
 import Tooltip from "@mui/material/Tooltip";
+import { Link } from "react-router-dom";
 import { ColorModeContext, tokens } from "../../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -47,9 +48,11 @@ function Topbar() {
           </IconButton>
         </Tooltip>
         <Tooltip title="Settings">
-          <IconButton>
-            <SettingsOutlinedIcon />
-          </IconButton>
+          <Link to="/form">
+            <IconButton>
+              <SettingsOutlinedIcon />
+            </IconButton>
+          </Link>
         </Tooltip>
         <Tooltip title="Sign Out">
           <IconButton>

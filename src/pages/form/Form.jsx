@@ -144,8 +144,8 @@ function Form() {
               />
             </Box>
             <Box display="flex" justifyContent="flex-end" mt="20px">
-              <Button type="submit" color="primary" variant="contained">
-                Create User
+              <Button type="submit" color="secondary" variant="contained">
+                Create New User
               </Button>
             </Box>
           </form>
