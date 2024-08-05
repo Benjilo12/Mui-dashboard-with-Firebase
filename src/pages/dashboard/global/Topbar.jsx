@@ -18,7 +18,15 @@ function Topbar() {
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
   return (
-    <Box sx={{ display: "flex", justifyContent: "space-between", p: 2 }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        p: 2,
+        backgroundColor:
+          theme.palette.mode === "light" ? "orange" : colors.primary[400],
+      }}
+    >
       <Box
         sx={{
           display: "flex",
