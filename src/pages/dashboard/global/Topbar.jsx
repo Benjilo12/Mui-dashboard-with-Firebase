@@ -24,7 +24,7 @@ function Topbar() {
         justifyContent: "space-between",
         p: 2,
         backgroundColor:
-          theme.palette.mode === "light" ? "orange" : colors.primary[400],
+          theme.palette.mode === "light" ? "#cc4f55" : colors.primary[400],
       }}
     >
       <Box
@@ -62,7 +62,7 @@ function Topbar() {
             </IconButton>
           </Link>
         </Tooltip>
-        <Tooltip title="Sign Out">
+        <Tooltip title="Profile">
           <IconButton>
             <PersonOutlinedIcon />
           </IconButton>

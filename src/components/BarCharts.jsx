@@ -31,6 +31,12 @@ function BarCharts({ isDashboard = false }) {
               fill: colors.grey[100],
             },
           },
+          tooltip: {
+            container: {
+              background: colors.grey[900], // Adjust the background color for dark mode
+              color: colors.grey[100], // Adjust the text color for dark mode
+            },
+          },
         },
       }}
       keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}

@@ -46,7 +46,7 @@ function Team() {
         return (
           <Box
             width="60%"
-            m="0 auto"
+            m="7px 1px"
             p="5px"
             display="flex"
             justifyContent="center"
@@ -74,6 +74,7 @@ function Team() {
       <Box
         m="40px 0 0 0"
         height="75vh"
+        maxWidth="85vw"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
