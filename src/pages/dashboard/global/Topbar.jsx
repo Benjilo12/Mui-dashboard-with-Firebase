@@ -1,22 +1,31 @@
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import { useTheme } from "@mui/material";
-import { useContext } from "react";
-import Tooltip from "@mui/material/Tooltip";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Box, IconButton, Tooltip, InputBase, useTheme } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { ColorModeContext, tokens } from "../../../theme";
-import InputBase from "@mui/material/InputBase";
+import { doSignOut } from "../../../firebase/auth";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function Topbar() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleSignOut = async () => {
+    try {
+      await doSignOut();
+      navigate("/"); // Navigate to login page after sign out
+    } catch (error) {
+      console.error("Error signing out: ", error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -65,6 +74,11 @@ function Topbar() {
         <Tooltip title="Profile">
           <IconButton>
             <PersonOutlinedIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Logout">
+          <IconButton onClick={handleSignOut}>
+            <LogoutIcon />
           </IconButton>
         </Tooltip>
       </Box>

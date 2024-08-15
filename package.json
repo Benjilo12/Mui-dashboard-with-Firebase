@@ -25,6 +25,7 @@
     "@nivo/geo": "^0.87.0",
     "@nivo/line": "^0.87.0",
     "@nivo/pie": "^0.87.0",
+    "firebase": "^10.12.5",
     "formik": "^2.4.6",
     "fullcalendar": "^6.1.15",
     "react": "^18.3.1",
