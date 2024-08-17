@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import pexel1 from "../../assets/pexel1.jpg";
+import pexel2 from "../../assets/pexel2.jpg";
 import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import "./Login.css"; // Import the CSS file
+
+import "./Login.css";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
@@ -16,29 +18,33 @@ import { useAuth } from "../../contexts/auth/Context/AuthProvider";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address").required("Required"),
-  password: Yup.string().required("Required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Required"),
 });
 
 function Login() {
   const { userLoggedIn } = useAuth();
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
+    e.preventDefault();
     setIsSigningIn(true);
     setErrorMessage("");
     try {
       await doSignInWithEmailAndPassword(values.email, values.password);
-      navigate("/dashboard"); // Navigate to dashboard after successful login
+      navigate("/dashboard");
     } catch (error) {
-      if (error.code === "auth/popup-closed-by-user") {
-        setErrorMessage(
-          "The sign-in popup was closed before completing the sign-in process. Please try again."
-        );
-      } else {
-        setErrorMessage(error.message);
-      }
+      // if (error.code === "auth/popup-closed-by-user") {
+      //   setErrorMessage(
+      //     "The sign-in popup was closed before completing the sign-in process. Please try again."
+      //   );
+      // } else {
+      //   setErrorMessage(error.message);
+      // }
+      console.log(error.message);
     } finally {
       setIsSigningIn(false);
     }
@@ -50,7 +56,7 @@ function Login() {
     setErrorMessage("");
     try {
       await doSignInWithGoogle();
-      navigate("/dashboard"); // Navigate to dashboard after successful login
+      navigate("/dashboard");
     } catch (error) {
       if (error.code === "auth/popup-closed-by-user") {
         setErrorMessage(
@@ -67,7 +73,7 @@ function Login() {
   return (
     <section className="section">
       <div className="imgBx">
-        <img src={pexel1} alt="Background" />
+        <img src={pexel2} alt="Background" />
       </div>
       <div className="contentBx">
         <div className="formBx">

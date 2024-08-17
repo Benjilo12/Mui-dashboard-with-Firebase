@@ -1,10 +1,14 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../../contexts/auth/Context/AuthProvider"; // Adjust the import based on your file structure
+import { useAuth } from "../../contexts/auth/Context/AuthProvider";
 
-const ProtectedRoute = ({ element: Element, ...rest }) => {
+const ProtectedRoute = ({ element: Component }) => {
   const { userLoggedIn } = useAuth();
 
-  return userLoggedIn ? <Element {...rest} /> : <Navigate to="/dashboard" />;
+  if (!userLoggedIn) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Component />;
 };
 
 export default ProtectedRoute;

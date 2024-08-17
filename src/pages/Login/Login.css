@@ -7,21 +7,21 @@
 
 .imgBx {
   position: relative;
-  width: 65%;
+  width: 75%;
   height: 100%;
+  object-position: bottom;
+  background: linear-gradient(#020024, #06050596, #030a0d36);
 }
 
-.imgBx::before {
+/* .imgBx::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(#020024, #e91e62d2, #03a8f469);
   z-index: 1;
-  mix-blend-mode: screen;
-}
+} */
 
 .imgBx img {
   position: absolute;
@@ -81,7 +81,7 @@
   .formBx {
     width: 100%;
     padding: 2.5rem;
-    background: rgba(225, 225, 225, 0.9);
+    background: rgba(225, 225, 225, 0.687);
     margin: 50px;
   }
 }
@@ -97,7 +97,7 @@
   font-size: 16px;
   margin-bottom: 5px;
   display: inline-block;
-  color: #607d8b;
+  color: #2a5d77;
   letter-spacing: 1px;
 }
 

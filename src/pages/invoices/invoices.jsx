@@ -1,18 +1,77 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { DataGrid } from "@mui/x-data-grid";
+import EditIcon from "@mui/icons-material/Edit";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useTheme } from "@mui/material";
+import Divider from "@mui/material/Divider";
 import { tokens } from "../../theme";
-import { mockDataInvoices } from "../../data/mockdata";
+import Swal from "sweetalert2";
+import { db } from "../../firebase/firebase";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import Header from "../../components/Header";
+import { useState, useEffect } from "react";
 
 function Invoices() {
+  const [rows, setRows] = useState([]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, "Invoices"));
+      const data = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setRows(data);
+    };
+
+    fetchData();
+  }, []);
+
+  const getUsers = async () => {
+    const querySnapshot = await getDocs(collection(db, "Invoices"));
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setRows(data);
+  };
+
+  const deleteUser = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteApi(id);
+      }
+    });
+  };
+
+  const deleteApi = async (id) => {
+    const userDoc = doc(db, "Invoices", id);
+    await deleteDoc(userDoc);
+    Swal.fire("Deleted!", "Your file has been deleted.", "success");
+    getUsers();
+  };
+
+  const handleEdit = (id) => {
+    console.log("Edit row with id:", id);
+    // Add your edit logic here
+  };
+
   const columns = [
     { field: "id", headerName: "ID" },
-
     {
       field: "name",
       headerName: "Name",
@@ -41,10 +100,33 @@ function Invoices() {
     },
     {
       field: "date",
-      headerName: "Data",
+      headerName: "Date",
       flex: 1,
     },
+    {
+      field: "actions",
+      headerName: "Action",
+      type: "actions",
+      width: 200,
+      getActions: (params) => [
+        <Tooltip title="Edit">
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            onClick={() => handleEdit(params.id)}
+          />
+        </Tooltip>,
+        <Tooltip title="Delete">
+          <GridActionsCellItem
+            icon={<DeleteIcon sx={{ color: "red" }} />}
+            label="Delete"
+            onClick={() => deleteUser(params.id)}
+          />
+        </Tooltip>,
+      ],
+    },
   ];
+
   return (
     <Box m="20px">
       <Header title="INVOICES" subtitle="List of Invoice Balance" />
@@ -77,7 +159,34 @@ function Invoices() {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <Box
+          sx={{
+            display: "flex",
+            backgroundColor: colors.primary[400],
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ padding: "6px" }}
+          >
+            Invoices
+          </Typography>
+          <Button
+            variant="contained"
+            endIcon={<AddCircleIcon />}
+            sx={{
+              backgroundColor: colors.blueAccent[400],
+              borderRadius: "3px",
+            }}
+          >
+            Add
+          </Button>
+        </Box>
+        <Divider />
+        <DataGrid checkboxSelection rows={rows} columns={columns} />
       </Box>
     </Box>
   );
