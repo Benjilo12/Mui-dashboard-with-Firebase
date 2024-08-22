@@ -1,6 +1,8 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Topbar from "./pages/dashboard/global/Topbar";
 import Sidebar from "./pages/dashboard/global/Sidebar";
 import Dashboard from "./pages/dashboard/index";
@@ -16,6 +18,7 @@ import Line from "./pages/line/Line";
 import Geography from "./pages/geography/Geography";
 import Login from "./pages/Login/Login";
 import ProtectedRoute from "./pages/ProtectedRoute/ProtectedRoute";
+import SignUp from "./pages/register/SignUp";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -23,8 +26,10 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
           <Route
             path="/*"
             element={

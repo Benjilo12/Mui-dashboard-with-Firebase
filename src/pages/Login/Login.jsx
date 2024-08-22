@@ -2,12 +2,8 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import pexel1 from "../../assets/pexel1.jpg";
+import { Link } from "react-router-dom";
 import pexel2 from "../../assets/pexel2.jpg";
-import EmailIcon from "@mui/icons-material/Email";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
 
 import "./Login.css";
 import {
@@ -30,21 +26,21 @@ function Login() {
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
-    e.preventDefault();
     setIsSigningIn(true);
     setErrorMessage("");
     try {
       await doSignInWithEmailAndPassword(values.email, values.password);
+      console.log("User signed in successfully. Navigating to dashboard.");
       navigate("/dashboard");
     } catch (error) {
-      // if (error.code === "auth/popup-closed-by-user") {
-      //   setErrorMessage(
-      //     "The sign-in popup was closed before completing the sign-in process. Please try again."
-      //   );
-      // } else {
-      //   setErrorMessage(error.message);
-      // }
-      console.log(error.message);
+      console.error("Sign-in error:", error); // Enhanced logging
+      if (error.code === "auth/popup-closed-by-user") {
+        setErrorMessage(
+          "The sign-in popup was closed before completing the sign-in process. Please try again."
+        );
+      } else {
+        setErrorMessage(error.message);
+      }
     } finally {
       setIsSigningIn(false);
     }
@@ -56,8 +52,10 @@ function Login() {
     setErrorMessage("");
     try {
       await doSignInWithGoogle();
+      console.log("User signed in with Google. Navigating to dashboard.");
       navigate("/dashboard");
     } catch (error) {
+      console.error("Google sign-in error:", error); // Enhanced logging
       if (error.code === "auth/popup-closed-by-user") {
         setErrorMessage(
           "The sign-in popup was closed before completing the sign-in process. Please try again."
@@ -116,28 +114,35 @@ function Login() {
                   </button>
                 </div>
                 <div className="inputBx">
-                  <p>
-                    Don't have an account? <a href="/">Sign up</a>
-                  </p>
+                  <div>
+                    Don't have an account?{" "}
+                    <Link
+                      to={"/signup"}
+                      style={{ textDecoration: "none", color: "#3987c9" }}
+                    >
+                      Sign up
+                    </Link>
+                  </div>
                 </div>
               </Form>
             )}
           </Formik>
-          <h3>Login with social media</h3>
-          <ul className="socialIcons">
-            <li>
-              <EmailIcon fontSize="large" onClick={handleGoogleSignIn} />
-            </li>
-            <li>
-              <FacebookIcon fontSize="large" />
-            </li>
-            <li>
-              <TwitterIcon fontSize="large" />
-            </li>
-            <li>
-              <InstagramIcon fontSize="large" />
-            </li>
-          </ul>
+          <h3>Login with Google</h3>
+          <div className="container" onClick={handleGoogleSignIn}>
+            <div className="g-sign-in-button">
+              <div className="content-wrapper">
+                <div className="logo-wrapper">
+                  <img
+                    src="https://developers.google.com/identity/images/g-logo.png"
+                    alt="Google Logo"
+                  />
+                </div>
+                <span className="text-container">
+                  <span>Sign in with Google</span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
